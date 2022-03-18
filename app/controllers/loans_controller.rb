@@ -30,7 +30,8 @@ class LoansController < ApplicationController
   def create
     the_loan = Loan.new
     the_loan.disbursed_amount = params.fetch("query_disbursed_amount")
-    the_loan.username = params.fetch("query_username")
+    #the_loan.username = params.fetch("query_username")
+    the_loan.username =session.fetch(:borrower_id)
 
     if the_loan.valid?
       the_loan.save

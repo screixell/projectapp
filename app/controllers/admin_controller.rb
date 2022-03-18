@@ -1,13 +1,13 @@
-class BorrowerController < ApplicationController
+class AdminController < ApplicationController
   # Uncomment line 3 in this file and line 5 in ApplicationController if you want to force borrowers to sign in before any other actions.
-  skip_before_action(:force_borrower_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
+  # skip_before_action(:force_borrower_sign_in, { :only => [:sign_up_form, :create, :sign_in_form, :create_cookie] })
 
   def index
-    render({ :template => "borrower/index.html.erb" })
+    render({ :template => "admin/index.html.erb" })
   end
 
   def sign_in_form
-    render({ :template => "borrower/sign_in.html.erb" })
+    render({ :template => "admin/sign_in.html.erb" })
   end
 
   def create_cookie
@@ -16,14 +16,7 @@ class BorrowerController < ApplicationController
     the_supplied_password = params.fetch("query_password")
     
     if borrower != nil
-
-
-      if borrower.status=="Inactive"
-        redirect_to("/borrower_sign_in", { :alert => "User not active." })
-      else
-
       are_they_legit = borrower.authenticate(the_supplied_password)
-      end 
     
       if are_they_legit == false
         redirect_to("/borrower_sign_in", { :alert => "Incorrect password." })
@@ -38,7 +31,6 @@ class BorrowerController < ApplicationController
       redirect_to("/borrower_sign_in", { :alert => "No borrower with that email address." })
     end
   end
-
 
   def destroy_cookies
     reset_session
@@ -65,10 +57,11 @@ class BorrowerController < ApplicationController
     save_status = @borrower.save
 
     if save_status == true
+      session[:borrower_id] = @borrower.id
+      session[:username] = @borrower.username
+      session[:status]= @borrower.status
      
-      redirect_to("/", { :notice => "Borrower account created successfully. Please talk to admin to activate."})
-      reset_session
-
+      redirect_to("/", { :notice => "Borrower account created successfully."})
     else
       redirect_to("/borrower_sign_up", { :alert => @borrower.errors.full_messages.to_sentence })
     end

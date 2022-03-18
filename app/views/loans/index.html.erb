@@ -82,10 +82,10 @@
         </td>
 
         <td>
-          <%= time_ago_in_words(a_loan.created_at) %> ago
+        <%= select_date(a_loan.created_at, order: [:year, :month, :day]) %> 
         </td>
         <td>
-          <%= time_ago_in_words(a_loan.updated_at) %> ago
+          <%= select_date(a_loan.created_at+14.days, order: [:year, :month, :day]) %> 
         </td>
 
         <td>
