@@ -17,6 +17,16 @@ class LoansController < ApplicationController
     render({ :template => "loans/show.html.erb" })
   end
 
+  def user_show
+    the_username = session.fetch(:username)
+
+    matching_loans = Loan.where({ :username => the_username })
+
+    @the_loan = matching_loans.at(0)
+
+    render({ :template => "loans/user.html.erb" })
+  end
+
   def create
     the_loan = Loan.new
     the_loan.disbursed_amount = params.fetch("query_disbursed_amount")

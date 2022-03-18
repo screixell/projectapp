@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get("/loans", { :controller => "loans", :action => "index" })
   
   get("/loans/:path_id", { :controller => "loans", :action => "show" })
+
+  get("/loans_user", { :controller => "loans", :action => "user_show" })
+
   
   # UPDATE
   

@@ -56,7 +56,8 @@ class BorrowerController < ApplicationController
 
     if save_status == true
       session[:borrower_id] = @borrower.id
-   
+      session[:username] = @borrower.username
+     
       redirect_to("/", { :notice => "Borrower account created successfully."})
     else
       redirect_to("/borrower_sign_up", { :alert => @borrower.errors.full_messages.to_sentence })

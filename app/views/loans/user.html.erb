@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Loans of <%= @the_loan.id %> 
+    </h1>
+
+    <div>
+      <div>
+        <a href="/loans">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_loan/<%= @the_loan.id %>">
+          Delete loan
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Disbursed amount
+      </dt>
+      <dd>
+        <%= @the_loan.disbursed_amount %>
+      </dd>
+
+      <dt>
+        Username
+      </dt>
+      <dd>
+        <%= @the_loan.username %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_loan.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_loan.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit loan
+    </h2>
+
+    <form action="/modify_loan/<%= @the_loan.id %>"  method="post" >
+      <div>
+        <label for="disbursed_amount_box">
+          Disbursed amount
+        </label>
+
+        <input type="text" id="disbursed_amount_box" name="query_disbursed_amount" value="<%= @the_loan.disbursed_amount %>">
+      </div>
+
+      <div>
+        <label for="username_box">
+          Username
+        </label>
+
+        <input type="text" id="username_box" name="query_username" value="<%= @the_loan.username %>">
+      </div>
+
+      <button>
+        Update loan
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
