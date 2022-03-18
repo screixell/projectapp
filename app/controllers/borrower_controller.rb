@@ -17,22 +17,23 @@ class BorrowerController < ApplicationController
     
     if borrower != nil
 
-
       if borrower.status=="Inactive"
-        redirect_to("/borrower_sign_in", { :alert => "User not active." })
+        redirect_to("/borrower_sign_in", { :alert => "User not active. Please contact an admin" })
+        
       else
+            are_they_legit = borrower.authenticate(the_supplied_password)
+          
+             
+          
+            if are_they_legit == false
+              redirect_to("/borrower_sign_in", { :alert => "Incorrect password." })
+            else
+              session[:borrower_id] = borrower.id
+              session[:username] = borrower.username
+              session[:status]= borrower.status
 
-      are_they_legit = borrower.authenticate(the_supplied_password)
-      end 
-    
-      if are_they_legit == false
-        redirect_to("/borrower_sign_in", { :alert => "Incorrect password." })
-      else
-        session[:borrower_id] = borrower.id
-        session[:username] = borrower.username
-        session[:status]= borrower.status
-      
-        redirect_to("/", { :notice => "Signed in successfully." })
+              redirect_to("/", { :notice => "Signed in successfully." })
+            end
       end
     else
       redirect_to("/borrower_sign_in", { :alert => "No borrower with that email address." })

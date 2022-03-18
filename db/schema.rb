@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 2022_03_18_153829) do
     t.string "username"
     t.string "first_name"
     t.string "last_name"
-    t.string "code"
+    t.string "code", default: "123"
     t.string "email"
     t.string "credit"
-    t.string "status"
+    t.string "status", default: "Inactive"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

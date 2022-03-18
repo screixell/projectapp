@@ -3,13 +3,13 @@
 # Table name: borrowers
 #
 #  id              :integer          not null, primary key
-#  code            :string
+#  code            :string           default("123")
 #  credit          :string
 #  email           :string
 #  first_name      :string
 #  last_name       :string
 #  password_digest :string
-#  status          :string
+#  status          :string           default("Inactive")
 #  username        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
